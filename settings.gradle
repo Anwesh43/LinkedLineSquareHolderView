@@ -1,0 +1,3 @@
+include ':linesquareholderview'
+include ':app'
+rootProject.name = "LinkedLineSquareHolderView"
