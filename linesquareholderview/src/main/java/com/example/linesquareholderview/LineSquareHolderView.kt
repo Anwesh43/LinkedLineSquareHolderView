@@ -37,13 +37,19 @@ fun Canvas.drawLineSquareHolder(scale : Float, w : Float, h : Float, paint : Pai
     val sc3 : Float = scale.divideScale(2, parts)
     val sc4 : Float = scale.divideScale(3, parts)
     val sc5 : Float = scale.divideScale(4, parts)
+    if (sc1 <= 0f || sc5 >= 1f) {
+        return
+    }
     save()
     translate(w / 2, h / 2)
     for (j in 0..1) {
         save()
         rotate(deg * (1f - 2 * j) * sc2)
         drawLine(0f, -size * sc5, 0f, -size * sc1, paint)
-        drawRect(RectF(size * sc4, -size, size * sc3, 0f), paint)
+        save()
+        scale(1f - 2 * j, 1f)
+        drawRect(RectF(-2 * size * sc3 , -size, -2 * size * sc4, 0f), paint)
+        restore()
         restore()
     }
     restore()
