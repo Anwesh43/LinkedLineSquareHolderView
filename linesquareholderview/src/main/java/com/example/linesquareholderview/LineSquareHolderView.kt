@@ -184,4 +184,27 @@ class LineSquareHolderView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineSquareHolderView) {
+
+        private val animator : Animator = Animator(view)
+        private val lsh : LineSquareHolder = LineSquareHolder(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            lsh.draw(canvas, paint)
+            animator.animate {
+                lsh.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lsh.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
